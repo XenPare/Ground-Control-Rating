@@ -45,13 +45,13 @@ hook.Add("PlayerInitialSpawn", "GC Rating", function(pl)
 
 	local uid = pl:UniqueID()
 	local row = sql.QueryRow("SELECT name, steamid FROM gc_rating WHERE player = " .. uid .. ";")
-    if not row then
-        sql.Query("INSERT INTO gc_rating( player, name, steamid, kills, deaths ) VALUES(" .. uid .. ", '" .. pl:Name() .. "', '" .. pl:SteamID() .. "', 0, 0) ")
-    else
-        local name = row.name
-        if name ~= pl:Name() then
-            sql.Query("UPDATE gc_rating SET name = " .. SQLStr(pl:Name()) .. " WHERE player = " .. uid .. ";")
-        end
+	if not row then
+		sql.Query("INSERT INTO gc_rating( player, name, steamid, kills, deaths ) VALUES(" .. uid .. ", '" .. pl:Name() .. "', '" .. pl:SteamID() .. "', 0, 0) ")
+	else
+		local name = row.name
+		if name ~= pl:Name() then
+			sql.Query("UPDATE gc_rating SET name = " .. SQLStr(pl:Name()) .. " WHERE player = " .. uid .. ";")
+		end
 	end
 end)
 
